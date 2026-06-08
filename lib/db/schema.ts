@@ -14,7 +14,7 @@ export const members = pgTable("members", {
     .notNull(), // babysitting only
   businessName: text("business_name"), // businesses only
   website: text("website"), // businesses only
-  imageUrl: text("image_url"), // Cloudinary URL — optional
+  imageUrl: text("image_url"), // Vercel Blob URL — optional
   email: text("email").notNull(),
   phone: text("phone"),
   approved: boolean("approved").default(true).notNull(),

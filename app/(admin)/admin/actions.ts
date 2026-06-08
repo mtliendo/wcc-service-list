@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { put } from "@vercel/blob";
 import { db } from "@/lib/db";
 import { members } from "@/lib/db/schema";
 import { auth0 } from "@/lib/auth0";
@@ -34,6 +35,22 @@ async function requireAdmin() {
 
 function toNullable(value: string | undefined) {
   return value && value.trim().length > 0 ? value.trim() : null;
+}
+
+export async function uploadMemberPhoto(formData: FormData) {
+  await requireAdmin();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    throw new Error("No file provided");
+  }
+
+  const blob = await put(file.name, file, {
+    access: "public",
+    addRandomSuffix: true,
+  });
+
+  return blob.url;
 }
 
 export async function createMember(input: MemberFormInput) {

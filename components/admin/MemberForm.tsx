@@ -21,10 +21,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { uploadToCloudinary, getThumbnailUrl } from "@/lib/cloudinary";
+import { getThumbnailUrl } from "@/lib/blob";
 import { CATEGORIES } from "@/types/directory";
 import type { FullMember } from "@/types/directory";
-import { createMember, updateMember } from "@/app/(admin)/admin/actions";
+import { createMember, updateMember, uploadMemberPhoto } from "@/app/(admin)/admin/actions";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -89,10 +89,12 @@ export function MemberForm({ member }: { member?: FullMember }) {
     if (!file) return;
     setUploading(true);
     try {
-      const url = await uploadToCloudinary(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      const url = await uploadMemberPhoto(formData);
       setValue("imageUrl", url, { shouldDirty: true });
     } catch {
-      toast.error("Image upload failed. Check your Cloudinary configuration.");
+      toast.error("Image upload failed. Check your Vercel Blob configuration.");
     } finally {
       setUploading(false);
       event.target.value = "";

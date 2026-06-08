@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getThumbnailUrl } from "@/lib/cloudinary";
+import { getThumbnailUrl } from "@/lib/blob";
 import { CATEGORIES } from "@/types/directory";
 import type { FullMember } from "@/types/directory";
 import { deleteMember, toggleApproved } from "@/app/(admin)/admin/actions";

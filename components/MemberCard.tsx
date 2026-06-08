@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { getThumbnailUrl } from "@/lib/cloudinary";
+import { getThumbnailUrl } from "@/lib/blob";
 import { cn } from "@/lib/utils";
 import type { PublicMember } from "@/types/directory";
 

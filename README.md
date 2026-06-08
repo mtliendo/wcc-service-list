@@ -15,7 +15,7 @@ members add, edit, approve, and remove listings.
 - **TanStack Query** for client-side data fetching
 - **Auth0** (`@auth0/nextjs-auth0` v4) for admin authentication
 - **Neon (Postgres) + Drizzle ORM** for the member database
-- **Cloudinary** for profile photo uploads
+- **Vercel Blob** for profile photo uploads
 - **Resend** for the "contact this member" email flow
 - **Vercel AI Gateway / AI SDK** for the directory chat assistant
 
@@ -32,7 +32,7 @@ npm install
 Copy [.env.example](.env.example) to `.env.local` and fill in real values.
 Each section in that file includes brief notes on where to get the
 corresponding credentials (Auth0 application + callback URLs, a Neon
-connection string, a Cloudinary unsigned upload preset, a Resend API key, and
+connection string, a Vercel Blob read-write token, a Resend API key, and
 a Vercel AI Gateway key).
 
 ```bash
@@ -89,7 +89,7 @@ hooks/useMembers.ts         TanStack Query hook for /api/members
 lib/
   db/                       Drizzle client, schema, seed script
   auth0.ts                  Auth0Client instance
-  cloudinary.ts             Unsigned upload + thumbnail URL helpers
+  blob.ts                   Thumbnail URL helper (upload lives in admin/actions.ts)
 types/directory.ts          Shared Category / PublicMember / FullMember types
 proxy.ts                    Mounts Auth0 routes (replaces middleware.ts)
 ```
